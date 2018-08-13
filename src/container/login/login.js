@@ -11,23 +11,29 @@ class Login extends React.Component{
         super(props);
         this.state = {
             user: '',
-            password: ''
+            password: '',
+            sub: false
         }
         this.register = this.register.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
     }
     handleLogin(){
         this.props.login(this.state);
+        this.setState({
+            sub: true
+        })
     }
     handleCheange(key,value){
         this.setState({
-            [key]: value
+            [key]: value,
+            sub: false
         })
     }
     register(){
         this.props.history.push('/register');
     }
     render(){
+        const Item = List.Item
         return (
             <div>
                 {(this.props.redirectTo && this.props.redirectTo !== '/login') ? <Redirect to= {this.props.redirectTo}/>: null}                
@@ -44,7 +50,8 @@ class Login extends React.Component{
                             onChange={(value) => this.handleCheange('password',value)}                            
                         >
                             密码
-                        </InputItem>                      
+                        </InputItem>   
+                        {this.state.sub ? <Item className="err">{this.props.msg}</Item> : null}
                     </List>
                     <WhiteSpace/> 
                     <Button type="primary" onClick={this.handleLogin}>

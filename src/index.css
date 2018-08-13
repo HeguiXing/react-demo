@@ -104,3 +104,6 @@ body {
 .logo-container{
 	margin-top: 20px;
 }
+.err .am-list-line .am-list-content{
+	color: #f40 !important;
+}

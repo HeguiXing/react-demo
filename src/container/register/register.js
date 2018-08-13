@@ -13,20 +13,26 @@ class Register extends React.Component{
             user: '',
             password: '',
             repeatpassword: '',
-            type: 'genius'
+            type: 'genius',
+            sub: false
         }
         this.handleRegister = this.handleRegister.bind(this);
     }
     handleCheange(key,value){
         this.setState({
-            [key]: value
+            [key]: value,
+            sub: false
         })
     }
     handleRegister(){
         this.props.register(this.state);
+        this.setState({
+            sub: true
+        })
     }
     render(){
         const RadioItem = Radio.RadioItem
+        const Item = List.Item
         return (
             <div>
                 {this.props.user.redirectTo ? <Redirect to= {this.props.user.redirectTo}/>: null}
@@ -66,7 +72,8 @@ class Register extends React.Component{
                             onChange={() => this.handleCheange('type','boss')}                            
                         >
                             BOSS
-                        </RadioItem>                                                                                                                                                
+                        </RadioItem> 
+                        {this.state.sub ? <Item className="err">{this.props.user.msg}</Item> : null}                                                                                                                                               
                     </List>
                     <WhiteSpace/>
                     <Button 
